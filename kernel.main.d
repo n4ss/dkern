@@ -47,3 +47,4 @@ extern(C) void main(uint magic, uint addr) {
 }
 
 extern(C) void _D15TypeInfo_Struct6__vtblZ() {}
+extern(C) void *_Dmodule_ref() { return null;}

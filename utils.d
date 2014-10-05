@@ -13,14 +13,12 @@ void memset(void *dest, int c, size_t n) {
     }
 }
 
-int test[] = [ 3, 2 ];
 /*
+int test[] = [ 3, 2 ];
 void test(int c) {
     mixin("int test[];");
 }
-*/
 
-/*
 extern(C) void* _d_arrayliteralTX(const(TypeInfo) ti, ulong length)
 {
     return null;

@@ -35,12 +35,12 @@ endef
 
 export GRUB_CONFIG
 
-all: setup $(PROG)
+all: setup $(KERNEL_IMG)
 	@echo ""
 	@echo "dkern successfully compiled"
 	@echo ""
 
-.asm.o:
+%.o: %.asm
 	@echo "Launching rule $@"
 	$(ASM) $(NASMFLAGS) -o $@ $<
 
@@ -50,7 +50,7 @@ all: setup $(PROG)
 
 $(KERNEL_IMG): $(OBJS)
 	@echo "Launching rule $(KERNEL_IMG)"
-	$(LD) $(LDFLAGS) -o $@ $(OBJS)
+	$(LD) $(LDFLAGS) -T $(LDSCRIPT) -o $@ $(OBJS)
 
 iso:
 	@echo "Launching rule iso"
