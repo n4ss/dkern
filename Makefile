@@ -1,10 +1,13 @@
 # Makefile for dkern
 
+
 LD = ld
 DC = gdc
-CC = gdc
+CC = gcc
 ASM = nasm
 QEMU = qemu-system-i386
+COLORS = 'error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01;36:quote=01'
+
 
 KERNEL_IMG=kernel
 
@@ -13,14 +16,14 @@ QEMU_DBG_FLAGS = -s -S
 
 CFLAGS = -nostdlib -g -m32
 DFLAGS = -nostdlib -nodefaultlibs -g -m32
-LDFLAGS = -nostdlib -nodefaultlibs --verbose=3 -m elf_i386
+LDFLAGS = -nostdlib -nodefaultlibs -m elf_i386
 NASMFLAGS = -felf
 
-DFILES = gdt.d utils.d runtime.d kernel.main.d
-ASMFILES = start.asm
+DFILES = gdt.d utils.d runtime.d kernel.main.d console.d
+ASMFILES = start.S gdtflush.S
 LDSCRIPT = linker.ld
 
-OBJS = $(ASMFILES:.asm=.o) $(DFILES:.d=.o)
+OBJS = $(DFILES:.d=.o) $(ASMFILES:.S=.o)
 
 ISO_PATH = isodir/
 BOOT_PATH = boot/
@@ -28,7 +31,7 @@ GRUB_PATH = boot/grub/
 
 GRUB_CFG = grub.cfg
 define GRUB_CONFIG
-menuentry \"kernel\" {
+menuentry "kernel" {
 	multiboot /$(BOOT_PATH)$(KERNEL_IMG)
 	}
 endef
@@ -40,13 +43,13 @@ all: setup $(KERNEL_IMG)
 	@echo "dkern successfully compiled"
 	@echo ""
 
-%.o: %.asm
+%.o: %.S
 	@echo "Launching rule $@"
 	$(ASM) $(NASMFLAGS) -o $@ $<
 
 %.o: %.d
 	@echo "Launching rule $@"
-	$(DC) $(DFLAGS) -c $< -o $@
+	GCC_COLORS=$(COLORS) $(DC) $(DFLAGS) -c $< -o $@
 
 $(KERNEL_IMG): $(OBJS)
 	@echo "Launching rule $(KERNEL_IMG)"

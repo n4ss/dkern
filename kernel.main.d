@@ -1,14 +1,18 @@
 module kernel.main;
 
+import console;
 import utils;
 import gdt;
 
+
 extern(C) void main(uint magic, uint addr) {
+    clear();
+    write("test\n", 4);
+/*
     int ypos = 0;
     int xpos = 0;
     const uint COLUMNS = 80;
     const uint LINES = 25;
-
 
     ubyte* vidmem = cast(ubyte*)0xFFFF8000000B8000; //Video memory address
     mixin("xpos = 20;");
@@ -40,7 +44,9 @@ extern(C) void main(uint magic, uint addr) {
     *(vidmem + (xpos + ypos * COLUMNS) * 2 + 1) = 0x07;
     *(vidmem + (xpos++ + ypos * COLUMNS) * 2) = '!' & 0xFF;
 
+    */
     init_gdt();
+// `_D11TypeInfo_Aa6__initZ' and `_d_arraycatT'
 
     while (1) {
     }
