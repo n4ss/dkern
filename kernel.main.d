@@ -18,7 +18,7 @@ extern(D) void free(void *loltarace) {}
 
 extern(D) auto realloc(T)(void *ptr, size_t size) {
     if (!ptr)
-        return malloc!(T)res;
+        return malloc!(T)(res);
     if (!size && ptr)
         return null;
 
