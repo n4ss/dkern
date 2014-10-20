@@ -17,9 +17,14 @@ SECTIONS{
     .data ALIGN (0x1000) : {
         data = .; _data = .; __data = .;
         *(.data)
-        start_ctors = .; *(.ctors)   end_ctors = .;
-        start_dtors = .; *(.dtors)   end_dtors = .;
+            start_ctors = .;
+        *(.ctors)
+            end_ctors = .;
+        start_dtors = .;
+        *(.dtors)
+            end_dtors = .;
     }
+    PROVIDE(_data_end = .);
 
     .bss : {
         sbss = .;
