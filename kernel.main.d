@@ -88,7 +88,6 @@ extern(C) void main(uint magic, uint addr) {
     string lol2 = "2lolok2";
     string lol3 = lol1 ~ lol2;
     write(cast(char *)lol3.ptr, 1);
-    write_de
 
     while (1) {
     }
