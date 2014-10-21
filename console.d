@@ -122,12 +122,12 @@ extern(D) void putc(char c) {
 extern(D) int write(const char *s, int length)
 {
     int i = 0;
-    while(s[i]) {
+    while(s[i] && i < length) {
         putc(s[i++]);
     }
     putc('\0');
 
-    return length;
+    return i;
 }
 
 extern(D) int write_dec(uint n)

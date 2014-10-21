@@ -3,6 +3,9 @@ module kernel.main;
 import console;
 import utils;
 import gdt;
+import idt;
+
+enum int test_index = 10u;
 
 extern(C) extern __gshared void *_data_end;
 static __gshared void *brk = &_data_end;
@@ -79,15 +82,32 @@ extern(D) char[] _d_arraycatT(void *ti, char s1[],char s2[]) {
 
 extern(C) void *_Dmodule_ref() { return null;}
 
+void test_concat() {
+    /* Concatenate strings */
+    string lol1 = "1lolok1";
+    string lol2 = "2lolok2\n";
+    string lol3 = lol1 ~ lol2;
+    write(cast(char *)lol3.ptr, lol3.length);
+
+    string s = test_index.stringof;
+    write(s.ptr, s.length);
+}
+
+void test_idt() {
+    /* Division by zero: test IDT */
+    uint i = 3;
+    uint x = 0;
+    uint v = i / x;
+}
+
 extern(C) void main(uint magic, uint addr) {
     clear();
-    write("test\n", 4);
+    write("Console initialized\n", 20);
     init_gdt();
+    init_idt();
 
-    string lol1 = "1lolok1";
-    string lol2 = "2lolok2";
-    string lol3 = lol1 ~ lol2;
-    write(cast(char *)lol3.ptr, 1);
+//    test_concat();
+//    test_idt();
 
     while (1) {
     }

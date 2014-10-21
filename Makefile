@@ -19,8 +19,8 @@ DFLAGS = -nostdlib -nodefaultlibs -g -m32
 LDFLAGS = -nostdlib -nodefaultlibs -m elf_i386
 NASMFLAGS = -felf
 
-DFILES = gdt.d utils.d runtime.d kernel.main.d console.d
-ASMFILES = start.S gdtflush.S
+DFILES = gdt.d utils.d runtime.d kernel.main.d console.d idt.d isr.d
+ASMFILES = start.S gdtflush.S idtflush.S isr_asm.S
 LDSCRIPT = linker.ld
 
 OBJS = $(DFILES:.d=.o) $(ASMFILES:.S=.o)

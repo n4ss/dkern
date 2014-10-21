@@ -50,6 +50,6 @@ void init_gdt() {
 
     gdt_flush(cast(size_t)&gdt_r);
     set_cr0_pe();
-    write("segmentation activated\n", 0);
+    write("Segmentation activated\n", 23);
 }
 
